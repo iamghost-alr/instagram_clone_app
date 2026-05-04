@@ -50,8 +50,8 @@ async function updateUser(req, res) {
       });
     }
 
-    if (bio) user.bio = bio;
-    if (profilePicture) user.profilePicture = profilePicture;
+    if (bio !== undefined) user.bio = bio;
+    if (profilePicture !== undefined) user.profilePicture = profilePicture;
 
     await user.save();
 
@@ -72,7 +72,7 @@ async function followUser(req, res) {
     const currentAuthId = req.authId;
     const targetAuthId = req.params.id;
 
-    if (currentAuthId === targetAuthId) {
+    if (currentAuthId.toString() === targetAuthId.toString()) {
       return res.status(400).json({
         message: "You cannot follow yourself",
       });
@@ -93,15 +93,23 @@ async function followUser(req, res) {
       });
     }
 
-    user.followers.push(currentAuthId);
-    currentUser.following.push(targetAuthId);
+    await User.updateOne(
+      { userId: targetAuthId },
+      { $addToSet: { followers: currentAuthId } },
+    );
 
-    await user.save();
-    await currentUser.save();
+    await User.updateOne(
+      { userId: currentAuthId },
+      { $addToSet: { following: targetAuthId } },
+    );
+
+    const updatedUser = await User.findOne({ userId: targetAuthId })
+      .populate("followers", "username")
+      .populate("following", "username");
 
     return res.status(200).json({
       message: "User followed successfully",
-      user,
+      user: updatedUser,
     });
   } catch (error) {
     return res.status(500).json({
@@ -116,7 +124,7 @@ async function unfollowUser(req, res) {
     const currentAuthId = req.authId;
     const targetAuthId = req.params.id;
 
-    if (currentAuthId === targetAuthId) {
+    if (currentAuthId.toString() === targetAuthId.toString()) {
       return res.status(400).json({
         message: "You cannot unfollow yourself",
       });
@@ -137,15 +145,23 @@ async function unfollowUser(req, res) {
       });
     }
 
-    user.followers.pull(currentAuthId);
-    currentUser.following.pull(targetAuthId);
+    await User.updateOne(
+      { userId: targetAuthId },
+      { $pull: { followers: currentAuthId } },
+    );
 
-    await user.save();
-    await currentUser.save();
+    await User.updateOne(
+      { userId: currentAuthId },
+      { $pull: { following: targetAuthId } },
+    );
+
+    const updatedUser = await User.findOne({ userId: targetAuthId })
+      .populate("followers", "username")
+      .populate("following", "username");
 
     return res.status(200).json({
       message: "User unfollowed successfully",
-      user,
+      user: updatedUser,
     });
   } catch (error) {
     return res.status(500).json({

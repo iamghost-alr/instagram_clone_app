@@ -1,16 +1,20 @@
 # Instagram Clone
 
-A minimal full-stack Instagram clone with modern APIs and clean architecture.
+A minimal full-stack Instagram clone with modern APIs and clean architecture. _(Work in progress)_
+
+---
 
 ## Features
 
-- Authentication (Register / Login)
+- Authentication (Register / Login / Logout / Delete Account)
 - RBAC (Role-Based Access Control)
-- User Profile (Get / Update / Delete)
+- User Profile (Get / Update)
 - Follow / Unfollow Users
-- Post Creation
-- Like & Comment System
+- Post Creation & Deletion
+- Like, Unlike & Comment System
 - Secure APIs with JWT
+
+---
 
 ## Tech Stack
 
@@ -23,6 +27,8 @@ A minimal full-stack Instagram clone with modern APIs and clean architecture.
 - Node.js
 - Express.js
 - MongoDB (Mongoose)
+
+---
 
 ## Setup
 
@@ -43,6 +49,8 @@ npm install
 npm start
 ```
 
+---
+
 ## Environment Variables
 
 ```
@@ -58,10 +66,18 @@ IMAGEKIT_URL_ENDPOINT=your_url
 
 ## API Overview
 
-- Auth: register, login, logout, delete account
-- User: get, update, follow, unfollow
-- Feed: Get All Posts, Like, Unlike, Comment
-- Posts: create post, delete post
+- **Auth**: register, login, logout, delete account
+- **User**: get, update, follow, unfollow
+- **Feed**: get posts, like, unlike, comment
+- **Posts**: create, delete
+
+---
+
+## Status
+
+This project is currently under development. Core features are implemented, with ongoing improvements and refinements.
+
+---
 
 ## Author
 

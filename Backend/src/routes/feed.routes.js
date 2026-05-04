@@ -8,7 +8,7 @@ const {
 } = require("../middlewares/auth.middleware");
 const { upload } = require("../middlewares/multer.middleware");
 
-const { createPost } = require("../controllers/post.controller");
+const { createPost, deletePost } = require("../controllers/post.controller");
 const {
   getAllPost,
   likePost,
@@ -22,6 +22,13 @@ router.post(
   roleMiddleware(["influencer", "admin"]),
   upload.single("image"),
   createPost,
+);
+
+router.delete(
+  "/delete/:postId",
+  authMiddleware,
+  roleMiddleware(["influencer", "admin"]),
+  deletePost,
 );
 
 router.get("/", authMiddleware, getAllPost);

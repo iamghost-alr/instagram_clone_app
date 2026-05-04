@@ -45,10 +45,10 @@ async function likePost(req, res) {
       message: "Post liked successfully",
       post,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(500).json({
       message: "Server error",
-      error: error.message,
+      error: err.message,
     });
   }
 }

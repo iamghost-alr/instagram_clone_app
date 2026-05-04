@@ -63,8 +63,6 @@ IMAGEKIT_URL_ENDPOINT=your_url
 - Feed: Get All Posts, Like, Unlike, Comment
 - Posts: create post, delete post
 
----
-
 ## Author
 
 Naman Roy

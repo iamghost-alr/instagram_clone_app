@@ -1,7 +1,6 @@
 # Instagram Clone
 
-A minimal full-stack Instagram clone with modern APIs and clean architecture. _(Work in progress)_
-
+A minimal full-stack Instagram clone with modern APIs and clean architecture.
 ---
 
 ## Features
@@ -75,7 +74,8 @@ IMAGEKIT_URL_ENDPOINT=your_url
 
 ## Status
 
-This project is currently under development. Core features are implemented, with ongoing improvements and refinements.
+This is now complete and ready to use but I am still working on improving the UI and adding more features.
+Always feel free to contribute and improve this project. Your help is always welcome!
 
 ---
 

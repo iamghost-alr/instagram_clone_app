@@ -6,6 +6,7 @@ async function getAllPost(req, res) {
   try {
     const posts = await Post.find()
       .populate("user", "username")
+      .populate("comments.user", "username")
       .sort({ createdAt: -1 });
 
     return res.status(200).json({
@@ -40,6 +41,8 @@ async function likePost(req, res) {
 
     post.likes.push(authId);
     await post.save();
+    await post.populate("user", "username");
+    await post.populate("comments.user", "username");
 
     return res.status(200).json({
       message: "Post liked successfully",
@@ -73,6 +76,8 @@ async function unlikePost(req, res) {
 
     post.likes.pull(authId);
     await post.save();
+    await post.populate("user", "username");
+    await post.populate("comments.user", "username");
 
     return res.status(200).json({
       message: "Post unliked successfully",
@@ -112,6 +117,8 @@ async function commentOnPost(req, res) {
     });
 
     await post.save();
+    await post.populate("user", "username");
+    await post.populate("comments.user", "username");
 
     return res.status(200).json({
       message: "Post commented successfully",

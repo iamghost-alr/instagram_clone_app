@@ -6,7 +6,7 @@ const User = require("../models/user.model");
 
 async function registerUser(req, res) {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
 
     const existingUser = await Auth.findOne({
       $or: [{ username }, { email }],
@@ -24,6 +24,7 @@ async function registerUser(req, res) {
       username,
       email,
       password: hashedPassword,
+      role: role || "user",
     });
 
     await User.create({
